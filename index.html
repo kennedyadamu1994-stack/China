@@ -1,1469 +1,692 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shanghai & Hong Kong Travel Guide - October 2025</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f2f2f7;
-            color: #1c1c1e;
-            line-height: 1.5;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            background: white;
-            border-radius: 3px;
-            padding: 40px 32px;
-            margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1c1c1e;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            font-size: 1rem;
-            color: #8e8e93;
-            margin-bottom: 24px;
-        }
-
-        .golden-week-alert {
-            background: #ff3b30;
-            color: white;
-            padding: 16px 20px;
-            border-radius: 3px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .controls {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .planning-toggle {
-            display: flex;
-            background: white;
-            border-radius: 3px;
-            padding: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            margin-right: auto;
-        }
-
-        .planning-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            font-weight: 500;
-            font-size: 14px;
-            background: transparent;
-            color: #8e8e93;
-        }
-
-        .planning-btn.active {
-            background: #34c759;
-            color: white;
-            box-shadow: 0 1px 2px rgba(52, 199, 89, 0.3);
-        }
-
-        .city-toggle {
-            display: flex;
-            background: white;
-            border-radius: 3px;
-            padding: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-
-        .city-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            font-weight: 500;
-            font-size: 14px;
-            background: transparent;
-            color: #8e8e93;
-        }
-
-        .city-btn.active {
-            background: #007aff;
-            color: white;
-            box-shadow: 0 1px 2px rgba(0,122,255,0.3);
-        }
-
-        .search-filter {
-            display: flex;
-            gap: 12px;
-            flex: 1;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            padding: 12px 16px;
-            border: 1px solid #d1d1d6;
-            border-radius: 3px;
-            background: white;
-            font-size: 16px;
-            min-width: 240px;
-            outline: none;
-            transition: border-color 0.15s ease;
-        }
-
-        .search-box:focus {
-            border-color: #007aff;
-        }
-
-        .filter-btn {
-            padding: 10px 16px;
-            border: 1px solid #d1d1d6;
-            border-radius: 3px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.15s ease;
-            font-weight: 500;
-            font-size: 14px;
-            color: #1c1c1e;
-        }
-
-        .filter-btn.active {
-            background: #1c1c1e;
-            color: white;
-            border-color: #1c1c1e;
-        }
-
-        .main-content {
-            display: flex;
-            gap: 24px;
-            align-items: flex-start;
-        }
-
-        .cards-section {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .itinerary-sidebar {
-            width: 350px;
-            background: white;
-            border-radius: 3px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            position: sticky;
-            top: 20px;
-            max-height: 80vh;
-            overflow-y: auto;
-            display: none;
-        }
-
-        .itinerary-sidebar.visible {
-            display: block;
-        }
-
-        .stats-bar {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            background: white;
-            padding: 20px 24px;
-            border-radius: 3px;
-            text-align: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            min-width: 120px;
-        }
-
-        .stat-number {
-            font-size: 1.75rem;
-            font-weight: 600;
-            color: #1c1c1e;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            color: #8e8e93;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .section-header {
-            margin: 48px 0 24px;
-            text-align: left;
-        }
-
-        .section-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1c1c1e;
-            margin-bottom: 4px;
-        }
-
-        .section-header p {
-            color: #8e8e93;
-            font-size: 14px;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 16px;
-            margin-bottom: 48px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 3px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-            transition: all 0.15s ease;
-            position: relative;
-            border: 1px solid rgba(0,0,0,0.04);
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .card.selected {
-            border-color: #34c759;
-            background: #f0fff4;
-        }
-
-        .card-image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .priority-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            padding: 4px 10px;
-            border-radius: 3px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(10px);
-        }
-
-        .must-see { 
-            background: rgba(255, 59, 48, 0.9); 
-            color: white; 
-        }
-        .recommended { 
-            background: rgba(255, 149, 0, 0.9); 
-            color: white; 
-        }
-        .optional { 
-            background: rgba(142, 142, 147, 0.9); 
-            color: white; 
-        }
-
-        .card-checkbox {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border: 2px solid #d1d1d6;
-            border-radius: 3px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s ease;
-            z-index: 10;
-        }
-
-        .card-checkbox.visible {
-            display: flex;
-        }
-
-        .card-checkbox.checked {
-            background: #34c759;
-            border-color: #34c759;
-        }
-
-        .card-checkbox:after {
-            content: '✓';
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            display: none;
-        }
-
-        .card-checkbox.checked:after {
-            display: block;
-        }
-
-        .card-content {
-            padding: 20px;
-        }
-
-        .card-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #1c1c1e;
-        }
-
-        .card-description {
-            color: #48484a;
-            font-size: 14px;
-            line-height: 1.4;
-            margin-bottom: 16px;
-        }
-
-        .card-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #8e8e93;
-        }
-
-        .detail-icon {
-            font-size: 14px;
-        }
-
-        .price {
-            background: #f2f2f7;
-            color: #1c1c1e;
-            padding: 10px 16px;
-            border-radius: 3px;
-            font-weight: 600;
-            text-align: center;
-            font-size: 14px;
-            margin-top: 12px;
-            border: 1px solid #e5e5ea;
-        }
-
-        .info-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #007aff;
-            color: white;
-            padding: 12px 16px;
-            border-radius: 3px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            margin-top: 12px;
-            transition: background-color 0.15s ease;
-        }
-
-        .info-link:hover {
-            background: #0056cc;
-        }
-
-        .link-arrow {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .golden-week-warning {
-            background: #fff2cd;
-            border: 1px solid #fed7aa;
-            color: #92400e;
-            padding: 12px;
-            border-radius: 3px;
-            margin-top: 12px;
-            font-size: 12px;
-            line-height: 1.3;
-        }
-
-        .add-selected-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #34c759;
-            color: white;
-            border: none;
-            padding: 16px 24px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(52, 199, 89, 0.4);
-            display: none;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.15s ease;
-            z-index: 1000;
-        }
-
-        .add-selected-btn.visible {
-            display: flex;
-        }
-
-        .add-selected-btn:hover {
-            background: #30d158;
-            transform: translateY(-2px);
-        }
-
-        .itinerary-header {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .itinerary-header h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1c1c1e;
-        }
-
-        .export-btn {
-            background: #8e8e93;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 3px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: background-color 0.15s ease;
-        }
-
-        .export-btn:hover {
-            background: #6d6d70;
-        }
-
-        .day-section {
-            margin-bottom: 24px;
-            border: 1px solid #e5e5ea;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .day-header {
-            background: #f2f2f7;
-            padding: 12px 16px;
-            border-bottom: 1px solid #e5e5ea;
-        }
-
-        .day-title {
-            font-weight: 600;
-            font-size: 14px;
-            color: #1c1c1e;
-            margin-bottom: 4px;
-        }
-
-        .day-stats {
-            font-size: 12px;
-            color: #8e8e93;
-        }
-
-        .day-items {
-            padding: 12px;
-            min-height: 60px;
-            background: white;
-        }
-
-        .day-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 12px;
-            background: #f8f9fa;
-            border: 1px solid #e5e5ea;
-            border-radius: 3px;
-            margin-bottom: 8px;
-            transition: all 0.15s ease;
-        }
-
-        .day-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .day-item-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .day-item-name {
-            font-weight: 500;
-            font-size: 13px;
-            color: #1c1c1e;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .day-item-details {
-            font-size: 11px;
-            color: #8e8e93;
-        }
-
-        .remove-item {
-            background: #ff3b30;
-            color: white;
-            border: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 3px;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .empty-day {
-            text-align: center;
-            color: #8e8e93;
-            font-size: 12px;
-            padding: 20px;
-            font-style: italic;
-        }
-
-        .date-picker-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .date-picker-modal.visible {
-            display: flex;
-        }
-
-        .date-picker-content {
-            background: white;
-            border-radius: 3px;
-            padding: 24px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .date-picker-content h3 {
-            margin-bottom: 16px;
-            font-size: 1.125rem;
-            font-weight: 600;
-        }
-
-        .date-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .date-option {
-            padding: 12px;
-            border: 1px solid #e5e5ea;
-            border-radius: 3px;
-            background: white;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.15s ease;
-        }
-
-        .date-option:hover {
-            border-color: #007aff;
-            background: #f0f9ff;
-        }
-
-        .date-option.selected {
-            background: #007aff;
-            color: white;
-            border-color: #007aff;
-        }
-
-        .date-option-title {
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .date-option-subtitle {
-            font-size: 12px;
-            opacity: 0.7;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-        }
-
-        .modal-btn {
-            padding: 10px 20px;
-            border: 1px solid #e5e5ea;
-            border-radius: 3px;
-            background: white;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.15s ease;
-        }
-
-        .modal-btn.primary {
-            background: #007aff;
-            color: white;
-            border-color: #007aff;
-        }
-
-        .modal-btn:hover {
-            background: #f0f9ff;
-            border-color: #007aff;
-        }
-
-        .modal-btn.primary:hover {
-            background: #0056cc;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .itinerary-sidebar {
-                width: 100%;
-                position: static;
-                max-height: none;
-                order: -1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 16px;
-            }
-            
-            .header h1 { 
-                font-size: 2rem; 
-            }
-            
-            .cards-grid { 
-                grid-template-columns: 1fr; 
-            }
-            
-            .controls { 
-                flex-direction: column; 
-                align-items: stretch;
-                gap: 12px;
-            }
-            
-            .planning-toggle,
-            .city-toggle {
-                order: 1;
-            }
-            
-            .search-filter { 
-                order: 2;
-                justify-content: stretch; 
-            }
-            
-            .search-box {
-                min-width: 100%;
-            }
-            
-            .card-details { 
-                grid-template-columns: 1fr; 
-            }
-            
-            .stats-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .stat {
-                text-align: left;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            
-            .stat-number {
-                order: 2;
-                margin-bottom: 0;
-            }
-            
-            .add-selected-btn {
-                bottom: 20px;
-                right: 20px;
-                padding: 12px 20px;
-            }
-            
-            .itinerary-sidebar {
-                padding: 16px;
-            }
-            
-            .date-picker-content {
-                padding: 20px;
-                margin: 16px;
-            }
-            
-            .date-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shanghai & Hong Kong Travel Guide - October 2025</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f2f2f7;color:#1c1c1e;line-height:1.5}
+    .container{max-width:1200px;margin:0 auto;padding:20px}
+    .header{background:#fff;border-radius:3px;padding:40px 32px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.04);text-align:center}
+    .header h1{font-size:2.5rem;font-weight:700;color:#1c1c1e;margin-bottom:8px}
+    .header p{font-size:1rem;color:#8e8e93;margin-bottom:24px}
+    .golden-week-alert{background:#ff3b30;color:#fff;padding:16px 20px;border-radius:3px;font-size:14px;font-weight:500}
+    .controls{display:flex;gap:16px;margin-bottom:24px;align-items:center;flex-wrap:wrap}
+    .planning-toggle{display:flex;background:#fff;border-radius:3px;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-right:auto}
+    .planning-btn{padding:10px 20px;border:none;border-radius:3px;cursor:pointer;transition:all .15s ease;font-weight:500;font-size:14px;background:transparent;color:#8e8e93}
+    .planning-btn.active{background:#34c759;color:#fff;box-shadow:0 1px 2px rgba(52,199,89,.3)}
+    .city-toggle{display:flex;background:#fff;border-radius:3px;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+    .city-btn{padding:12px 24px;border:none;border-radius:3px;cursor:pointer;transition:all .15s ease;font-weight:500;font-size:14px;background:transparent;color:#8e8e93}
+    .city-btn.active{background:#007aff;color:#fff;box-shadow:0 1px 2px rgba(0,122,255,.3)}
+    .search-filter{display:flex;gap:12px;flex:1;justify-content:flex-end;flex-wrap:wrap}
+    .search-box{padding:12px 16px;border:1px solid #d1d1d6;border-radius:3px;background:#fff;font-size:16px;min-width:240px;outline:none;transition:border-color .15s ease}
+    .search-box:focus{border-color:#007aff}
+    .filter-btn{padding:10px 16px;border:1px solid #d1d1d6;border-radius:3px;background:#fff;cursor:pointer;transition:all .15s ease;font-weight:500;font-size:14px;color:#1c1c1e}
+    .filter-btn.active{background:#1c1c1e;color:#fff;border-color:#1c1c1e}
+    .main-content{display:flex;gap:24px;align-items:flex-start}
+    .cards-section{flex:1;min-width:0}
+    .itinerary-sidebar{width:350px;background:#fff;border-radius:3px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.04);position:sticky;top:20px;max-height:80vh;overflow-y:auto;display:none}
+    .itinerary-sidebar.visible{display:block}
+    .stats-bar{display:flex;gap:16px;margin-bottom:32px;justify-content:center;flex-wrap:wrap}
+    .stat{background:#fff;padding:20px 24px;border-radius:3px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.04);min-width:120px}
+    .stat-number{font-size:1.75rem;font-weight:600;color:#1c1c1e;margin-bottom:4px}
+    .stat-label{color:#8e8e93;font-size:13px;font-weight:500}
+    .section-header{margin:48px 0 24px;text-align:left}
+    .section-header h2{font-size:1.5rem;font-weight:600;color:#1c1c1e;margin-bottom:4px}
+    .section-header p{color:#8e8e93;font-size:14px}
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;margin-bottom:48px}
+    .card{background:#fff;border-radius:3px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:all .15s ease;position:relative;border:1px solid rgba(0,0,0,.04);cursor:pointer}
+    .card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+    .card.selected{border-color:#34c759;background:#f0fff4}
+    .card-image{width:100%;height:160px;object-fit:cover}
+    .priority-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:3px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;backdrop-filter:blur(10px)}
+    .must-see{background:rgba(255,59,48,.9);color:#fff}
+    .recommended{background:rgba(255,149,0,.9);color:#fff}
+    .optional{background:rgba(142,142,147,.9);color:#fff}
+    .card-checkbox{position:absolute;top:12px;right:12px;width:24px;height:24px;background:#fff;border:2px solid #d1d1d6;border-radius:3px;cursor:pointer;display:none;align-items:center;justify-content:center;transition:all .15s ease;z-index:10}
+    .card-checkbox.visible{display:flex}
+    .card-checkbox.checked{background:#34c759;border-color:#34c759}
+    .card-checkbox:after{content:'✓';color:#fff;font-size:14px;font-weight:600;display:none}
+    .card-checkbox.checked:after{display:block}
+    .card-content{padding:20px}
+    .card-title{font-size:1.125rem;font-weight:600;margin-bottom:8px;color:#1c1c1e}
+    .card-description{color:#48484a;font-size:14px;line-height:1.4;margin-bottom:16px}
+    .card-details{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+    .detail-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#8e8e93}
+    .detail-icon{font-size:14px}
+    .price{background:#f2f2f7;color:#1c1c1e;padding:10px 16px;border-radius:3px;font-weight:600;text-align:center;font-size:14px;margin-top:12px;border:1px solid #e5e5ea}
+    .info-link{display:flex;align-items:center;justify-content:space-between;background:#007aff;color:#fff;padding:12px 16px;border-radius:3px;text-decoration:none;font-weight:500;font-size:14px;margin-top:12px;transition:background-color .15s ease}
+    .info-link:hover{background:#0056cc}
+    .link-arrow{font-size:16px;font-weight:600}
+    .golden-week-warning{background:#fff2cd;border:1px solid #fed7aa;color:#92400e;padding:12px;border-radius:3px;margin-top:12px;font-size:12px;line-height:1.3}
+    .add-selected-btn{position:fixed;bottom:30px;right:30px;background:#34c759;color:#fff;border:none;padding:16px 24px;border-radius:25px;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 4px 20px rgba(52,199,89,.4);display:none;align-items:center;gap:8px;transition:all .15s ease;z-index:1000}
+    .add-selected-btn.visible{display:flex}
+    .add-selected-btn:hover{background:#30d158;transform:translateY(-2px)}
+    .itinerary-header{margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+    .itinerary-header h3{font-size:1.25rem;font-weight:600;color:#1c1c1e}
+    .export-btn{background:#8e8e93;color:#fff;border:none;padding:8px 16px;border-radius:3px;font-size:12px;cursor:pointer;transition:background-color .15s ease}
+    .export-btn:hover{background:#6d6d70}
+    .day-section{margin-bottom:24px;border:1px solid #e5e5ea;border-radius:3px;overflow:hidden}
+    .day-header{background:#f2f2f7;padding:12px 16px;border-bottom:1px solid #e5e5ea}
+    .day-title{font-weight:600;font-size:14px;color:#1c1c1e;margin-bottom:4px}
+    .day-stats{font-size:12px;color:#8e8e93}
+    .day-items{padding:12px;min-height:60px;background:#fff}
+    .day-item{display:flex;align-items:center;gap:12px;padding:8px 12px;background:#f8f9fa;border:1px solid #e5e5ea;border-radius:3px;margin-bottom:8px;transition:all .15s ease}
+    .day-item:last-child{margin-bottom:0}
+    .day-item-info{flex:1;min-width:0}
+    .day-item-name{font-weight:500;font-size:13px;color:#1c1c1e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .day-item-details{font-size:11px;color:#8e8e93}
+    .remove-item{background:#ff3b30;color:#fff;border:none;width:20px;height:20px;border-radius:3px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .empty-day{text-align:center;color:#8e8e93;font-size:12px;padding:20px;font-style:italic}
+    .date-picker-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:2000}
+    .date-picker-modal.visible{display:flex}
+    .date-picker-content{background:#fff;border-radius:3px;padding:24px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+    .date-picker-content h3{margin-bottom:16px;font-size:1.125rem;font-weight:600}
+    .date-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+    .date-option{padding:12px;border:1px solid #e5e5ea;border-radius:3px;background:#fff;cursor:pointer;text-align:center;transition:all .15s ease}
+    .date-option:hover{border-color:#007aff;background:#f0f9ff}
+    .date-option.selected{background:#007aff;color:#fff;border-color:#007aff}
+    .date-option-title{font-weight:600;font-size:14px;margin-bottom:4px}
+    .date-option-subtitle{font-size:12px;opacity:.7}
+    .modal-actions{display:flex;gap:12px;justify-content:flex-end}
+    .modal-btn{padding:10px 20px;border:1px solid #e5e5ea;border-radius:3px;background:#fff;cursor:pointer;font-weight:500;transition:all .15s ease}
+    .modal-btn.primary{background:#007aff;color:#fff;border-color:#007aff}
+    .modal-btn:hover{background:#f0f9ff;border-color:#007aff}
+    .modal-btn.primary:hover{background:#0056cc}
+    .hidden{display:none}
+    @media (max-width:1024px){.main-content{flex-direction:column}.itinerary-sidebar{width:100%;position:static;max-height:none;order:-1}}
+    @media (max-width:768px){
+      .container{padding:16px}
+      .header h1{font-size:2rem}
+      .cards-grid{grid-template-columns:1fr}
+      .controls{flex-direction:column;align-items:stretch;gap:12px}
+      .planning-toggle,.city-toggle{order:1}
+      .search-filter{order:2;justify-content:stretch}
+      .search-box{min-width:100%}
+      .card-details{grid-template-columns:1fr}
+      .stats-bar{flex-direction:column;align-items:stretch}
+      .stat{text-align:left;display:flex;justify-content:space-between;align-items:center}
+      .stat-number{order:2;margin-bottom:0}
+      .add-selected-btn{bottom:20px;right:20px;padding:12px 20px}
+      .itinerary-sidebar{padding:16px}
+      .date-picker-content{padding:20px;margin:16px}
+      .date-grid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Shanghai & Hong Kong</h1>
-            <p>October 3-8 Shanghai • October 8-12 Hong Kong, 2025</p>
-            
-            <div class="golden-week-alert">
-                <strong>Golden Week Alert:</strong> Shanghai dates fall during China's National Day Golden Week (Oct 1-7). Expect 3-5x crowds and 200-300% price increases.
-            </div>
-        </div>
-
-        <div class="controls">
-            <div class="planning-toggle">
-                <button class="planning-btn active" id="exploreBtn">Explore</button>
-                <button class="planning-btn" id="planBtn">Plan Trip</button>
-            </div>
-            
-            <div class="city-toggle">
-                <button class="city-btn active" id="shanghaiBtn">Shanghai</button>
-                <button class="city-btn" id="hongKongBtn">Hong Kong</button>
-            </div>
-            
-            <div class="search-filter">
-                <input type="text" class="search-box" placeholder="Search attractions..." id="searchInput">
-                <button class="filter-btn active" id="filterAll">All</button>
-                <button class="filter-btn" id="filterMustSee">Must-See</button>
-                <button class="filter-btn" id="filterRecommended">Recommended</button>
-                <button class="filter-btn" id="filterOptional">Optional</button>
-            </div>
-        </div>
-
-        <div class="stats-bar" id="statsBar">
-            <div class="stat">
-                <div class="stat-label">Total Places</div>
-                <div class="stat-number" id="totalCount">0</div>
-            </div>
-            <div class="stat">
-                <div class="stat-label">Must-See</div>
-                <div class="stat-number" id="mustSeeCount">0</div>
-            </div>
-            <div class="stat">
-                <div class="stat-label">Daily Budget</div>
-                <div class="stat-number" id="budgetRange">£0-0</div>
-            </div>
-        </div>
-
-        <div class="main-content">
-            <div class="cards-section">
-                <div id="shanghai-section">
-                    <div class="section-header">
-                        <h2>Shanghai Attractions</h2>
-                        <p>Navigate Golden Week with smart planning</p>
-                    </div>
-                    <div class="cards-grid" id="shanghai-cards"></div>
-                </div>
-
-                <div id="hong-kong-section" class="hidden">
-                    <div class="section-header">
-                        <h2>Hong Kong Attractions</h2>
-                        <p>Perfect October weather awaits</p>
-                    </div>
-                    <div class="cards-grid" id="hong-kong-cards"></div>
-                </div>
-            </div>
-
-            <div class="itinerary-sidebar" id="itinerarySidebar">
-                <div class="itinerary-header">
-                    <h3>My Itinerary</h3>
-                    <button class="export-btn" id="exportBtn">Export</button>
-                </div>
-                
-                <div id="shanghai-days">
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 3 - Shanghai Day 1</div>
-                            <div class="day-stats" id="day1-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="shanghai-day1">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 4 - Shanghai Day 2</div>
-                            <div class="day-stats" id="day2-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="shanghai-day2">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 5 - Shanghai Day 3</div>
-                            <div class="day-stats" id="day3-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="shanghai-day3">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 6 - Shanghai Day 4</div>
-                            <div class="day-stats" id="day4-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="shanghai-day4">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 7 - Shanghai Day 5</div>
-                            <div class="day-stats" id="day5-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="shanghai-day5">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 8 - Shanghai Day 6</div>
-                            <div class="day-stats" id="day6-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="shanghai-day6">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="hong-kong-days" class="hidden">
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 8 - Hong Kong Day 1</div>
-                            <div class="day-stats" id="hk-day1-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="hongkong-day1">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 9 - Hong Kong Day 2</div>
-                            <div class="day-stats" id="hk-day2-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="hongkong-day2">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 10 - Hong Kong Day 3</div>
-                            <div class="day-stats" id="hk-day3-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="hongkong-day3">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 11 - Hong Kong Day 4</div>
-                            <div class="day-stats" id="hk-day4-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="hongkong-day4">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-
-                    <div class="day-section">
-                        <div class="day-header">
-                            <div class="day-title">October 12 - Hong Kong Day 5</div>
-                            <div class="day-stats" id="hk-day5-stats">0 activities • 0 hours • £0</div>
-                        </div>
-                        <div class="day-items" id="hongkong-day5">
-                            <div class="empty-day">Click activities to add them here</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button class="add-selected-btn" id="addSelectedBtn">
-            <span>Add to Itinerary</span>
-            <span id="selectedCount">0</span>
-        </button>
-
-        <div class="date-picker-modal" id="datePickerModal">
-            <div class="date-picker-content">
-                <h3>Choose Day to Add Activities</h3>
-                <div class="date-grid" id="dateGrid">
-                    <!-- Days will be populated by JavaScript -->
-                </div>
-                <div class="modal-actions">
-                    <button class="modal-btn" id="cancelBtn">Cancel</button>
-                    <button class="modal-btn primary" id="addBtn">Add Activities</button>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="header">
+      <h1>Shanghai & Hong Kong</h1>
+      <p>October 3-8 Shanghai • October 8-12 Hong Kong, 2025</p>
+      <div class="golden-week-alert">
+        <strong>Golden Week Alert:</strong> Shanghai dates fall during China's National Day Golden Week (Oct 1-7). Expect 3-5x crowds and 200-300% price increases.
+      </div>
     </div>
 
-    <script>
-        // Data arrays (same as before)
-        const shanghaiData = [
-            {
-                name: "Shanghai Museum",
-                category: "attraction",
-                priority: "must-see",
-                price: "FREE",
-                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80",
-                description: "World-class Chinese art collection with ancient bronzes, ceramics, and calligraphy. Requires timed entry booking.",
-                location: "People's Square",
-                duration: "2-3 hours",
-                booking: "Required 7+ days ahead",
-                goldenWeek: "Extremely crowded - book immediately",
-                url: "https://www.shanghaimuseum.net/en"
-            },
-            {
-                name: "Yuyuan Garden",
-                category: "attraction", 
-                priority: "must-see",
-                price: "£4.05",
-                image: "https://images.unsplash.com/photo-1580836195115-4b74e3a67e7f?w=400&h=160&fit=crop&q=80",
-                description: "Exquisite Ming Dynasty garden with traditional Chinese architecture, pavilions, and rockeries.",
-                location: "Old City",
-                duration: "1-2 hours",
-                booking: "Book ahead",
-                goldenWeek: "Expect massive crowds and long queues",
-                url: "https://www.klook.com/en-US/activity/3979-yu-garden-shanghai/"
-            },
-            {
-                name: "Jade Buddha Temple",
-                category: "attraction",
-                priority: "must-see",
-                price: "£4.05", 
-                image: "https://images.unsplash.com/photo-1551112505-3c85b7f10137?w=400&h=160&fit=crop&q=80",
-                description: "Sacred Buddhist temple housing two precious jade Buddha statues from Myanmar.",
-                location: "Jing'an District",
-                duration: "1-1.5 hours",
-                booking: "None required",
-                goldenWeek: "Peaceful escape from crowds",
-                url: "https://maps.app.goo.gl/jade-buddha-temple-shanghai"
-            },
-            {
-                name: "Din Tai Fung",
-                category: "restaurant",
-                priority: "must-see",
-                price: "£16-32",
-                image: "https://images.unsplash.com/photo-1563379091-c5f9f5d6de5d?w=400&h=160&fit=crop&q=80",
-                description: "World-famous xiaolongbao (soup dumplings) with locations across Shanghai.",
-                location: "Multiple locations",
-                duration: "1-2 hours",
-                booking: "Recommended",
-                goldenWeek: "Long waits expected",
-                url: "https://dtf.com/en-us/locations"
-            },
-            {
-                name: "Huangpu River Cruise", 
-                category: "activity",
-                priority: "recommended",
-                price: "£12.60",
-                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80",
-                description: "Essential Shanghai experience offering unique perspectives of both historic Bund and modern Pudong.",
-                location: "Various piers",
-                duration: "45-60 minutes",
-                booking: "Book sunset timing",
-                goldenWeek: "Higher prices, book advance",
-                url: "https://www.klook.com/en-US/activity/1476-huangpu-river-cruise-shanghai/"
-            }
-        ];
+    <div class="controls">
+      <div class="planning-toggle">
+        <button class="planning-btn active" id="exploreBtn">Explore</button>
+        <button class="planning-btn" id="planBtn">Plan Trip</button>
+      </div>
+      <div class="city-toggle">
+        <button class="city-btn active" id="shanghaiBtn">Shanghai</button>
+        <button class="city-btn" id="hongKongBtn">Hong Kong</button>
+      </div>
+      <div class="search-filter">
+        <input type="text" class="search-box" placeholder="Search attractions..." id="searchInput"/>
+        <button class="filter-btn active" id="filterAll">All</button>
+        <button class="filter-btn" id="filterMustSee">Must-See</button>
+        <button class="filter-btn" id="filterRecommended">Recommended</button>
+        <button class="filter-btn" id="filterOptional">Optional</button>
+      </div>
+    </div>
 
-        const hongKongData = [
-            {
-                name: "The Peak Tram",
-                category: "attraction",
-                priority: "must-see",
-                price: "£13",
-                image: "https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=160&fit=crop&q=80",
-                description: "Historic 1888 funicular railway to Victoria Peak with spectacular harbor views.",
-                location: "Central",
-                duration: "2-3 hours",
-                booking: "Book ahead",
-                goldenWeek: null,
-                url: "https://www.thepeak.com.hk/en"
-            },
-            {
-                name: "Big Buddha + Cable Car",
-                category: "attraction",
-                priority: "must-see", 
-                price: "£23-50",
-                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80",
-                description: "34-meter bronze Buddha statue reached by scenic Ngong Ping cable car journey.",
-                location: "Lantau Island",
-                duration: "Half day",
-                booking: "Recommended",
-                goldenWeek: null,
-                url: "https://www.np360.com.hk/en"
-            },
-            {
-                name: "Ho Lee Fook",
-                category: "restaurant",
-                priority: "must-see",
-                price: "£38-58",
-                image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80",
-                description: "Modern Cantonese celebrating 10th anniversary with innovative dishes.",
-                location: "Central",
-                duration: "2-3 hours",
-                booking: "Essential",
-                goldenWeek: null,
-                url: "https://www.holeefook.com.hk/"
-            }
-        ];
+    <div class="stats-bar" id="statsBar">
+      <div class="stat">
+        <div class="stat-label">Total Places</div>
+        <div class="stat-number" id="totalCount">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Must-See</div>
+        <div class="stat-number" id="mustSeeCount">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Daily Budget</div>
+        <div class="stat-number" id="budgetRange">£0-0</div>
+      </div>
+    </div>
 
-        // State variables
-        let currentCity = 'shanghai';
-        let currentFilter = 'all';
-        let currentMode = 'explore';
-        let selectedItems = new Set();
-        let itinerary = {
-            'shanghai-day1': [],
-            'shanghai-day2': [],
-            'shanghai-day3': [],
-            'shanghai-day4': [],
-            'shanghai-day5': [],
-            'shanghai-day6': [],
-            'hongkong-day1': [],
-            'hongkong-day2': [],
-            'hongkong-day3': [],
-            'hongkong-day4': [],
-            'hongkong-day5': []
-        };
+    <div class="main-content">
+      <div class="cards-section">
+        <div id="shanghai-section">
+          <div class="section-header">
+            <h2>Shanghai Attractions</h2>
+            <p>Navigate Golden Week with smart planning</p>
+          </div>
+          <div class="cards-grid" id="shanghai-cards"></div>
+        </div>
 
-        // Main functions
-        function renderCards() {
-            const data = currentCity === 'shanghai' ? shanghaiData : hongKongData;
-            const container = document.getElementById(`${currentCity}-cards`);
-            
-            // Apply filters
-            let filteredData = data;
-            if (currentFilter !== 'all') {
-                filteredData = data.filter(item => item.priority === currentFilter);
-            }
-            
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            if (searchTerm) {
-                filteredData = filteredData.filter(item => 
-                    item.name.toLowerCase().includes(searchTerm) ||
-                    item.description.toLowerCase().includes(searchTerm) ||
-                    item.location.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            container.innerHTML = '';
-            
-            filteredData.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.dataset.itemId = `${currentCity}-${data.indexOf(item)}`;
-                
-                if (selectedItems.has(card.dataset.itemId)) {
-                    card.classList.add('selected');
-                }
-                
-                card.innerHTML = `
-                    <div class="priority-badge ${item.priority}">${item.priority.replace('-', ' ')}</div>
-                    <div class="card-checkbox ${currentMode === 'plan' ? 'visible' : ''} ${selectedItems.has(card.dataset.itemId) ? 'checked' : ''}"></div>
-                    <img src="${item.image}" alt="${item.name}" class="card-image" loading="lazy">
-                    <div class="card-content">
-                        <h3 class="card-title">${item.name}</h3>
-                        <p class="card-description">${item.description}</p>
-                        <div class="card-details">
-                            <div class="detail-item">
-                                <span class="detail-icon">📍</span>
-                                <span>${item.location}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">⏱️</span>
-                                <span>${item.duration}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">🎫</span>
-                                <span>${item.booking}</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-icon">${item.category === 'restaurant' ? '🍽️' : '🎯'}</span>
-                                <span>${item.category === 'restaurant' ? 'Restaurant' : 'Attraction'}</span>
-                            </div>
-                        </div>
-                        <div class="price">${item.price}</div>
-                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="info-link">
-                            <span>More Info & Booking</span>
-                            <span class="link-arrow">→</span>
-                        </a>
-                        ${item.goldenWeek ? 
-                            `<div class="golden-week-warning">
-                                <strong>Golden Week:</strong> ${item.goldenWeek}
-                            </div>` : ''
-                        }
-                    </div>
-                `;
-                
-                // Add click handler for planning mode
-                if (currentMode === 'plan') {
-                    card.addEventListener('click', (e) => {
-                        if (e.target.tagName === 'A' || e.target.closest('a')) return;
-                        e.preventDefault();
-                        toggleCardSelection(card.dataset.itemId);
-                    });
-                }
-                
-                container.appendChild(card);
-            });
-            
-            // Update stats
-            document.getElementById('totalCount').textContent = filteredData.length;
-            document.getElementById('mustSeeCount').textContent = 
-                filteredData.filter(item => item.priority === 'must-see').length;
-            document.getElementById('budgetRange').textContent = 
-                currentCity === 'shanghai' ? '£70-137' : '£56-111';
+        <div id="hong-kong-section" class="hidden">
+          <div class="section-header">
+            <h2>Hong Kong Attractions</h2>
+            <p>Perfect October weather awaits</p>
+          </div>
+          <div class="cards-grid" id="hong-kong-cards"></div>
+        </div>
+      </div>
+
+      <div class="itinerary-sidebar" id="itinerarySidebar">
+        <div class="itinerary-header">
+          <h3>My Itinerary</h3>
+          <button class="export-btn" id="exportBtn">Export</button>
+        </div>
+
+        <div id="shanghai-days">
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 3 - Shanghai Day 1</div>
+              <div class="day-stats" id="day1-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="shanghai-day1"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 4 - Shanghai Day 2</div>
+              <div class="day-stats" id="day2-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="shanghai-day2"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 5 - Shanghai Day 3</div>
+              <div class="day-stats" id="day3-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="shanghai-day3"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 6 - Shanghai Day 4</div>
+              <div class="day-stats" id="day4-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="shanghai-day4"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 7 - Shanghai Day 5</div>
+              <div class="day-stats" id="day5-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="shanghai-day5"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 8 - Shanghai Day 6</div>
+              <div class="day-stats" id="day6-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="shanghai-day6"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+        </div>
+
+        <div id="hong-kong-days" class="hidden">
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 8 - Hong Kong Day 1</div>
+              <div class="day-stats" id="hk-day1-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="hongkong-day1"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 9 - Hong Kong Day 2</div>
+              <div class="day-stats" id="hk-day2-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="hongkong-day2"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 10 - Hong Kong Day 3</div>
+              <div class="day-stats" id="hk-day3-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="hongkong-day3"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 11 - Hong Kong Day 4</div>
+              <div class="day-stats" id="hk-day4-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="hongkong-day4"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+          <div class="day-section">
+            <div class="day-header">
+              <div class="day-title">October 12 - Hong Kong Day 5</div>
+              <div class="day-stats" id="hk-day5-stats">0 activities • 0 hours • £0</div>
+            </div>
+            <div class="day-items" id="hongkong-day5"><div class="empty-day">Click activities to add them here</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="add-selected-btn" id="addSelectedBtn">
+      <span>Add to Itinerary</span>
+      <span id="selectedCount">0</span>
+    </button>
+
+    <div class="date-picker-modal" id="datePickerModal">
+      <div class="date-picker-content">
+        <h3>Choose Day to Add Activities</h3>
+        <div class="date-grid" id="dateGrid"></div>
+        <div class="modal-actions">
+          <button class="modal-btn" id="cancelBtn">Cancel</button>
+          <button class="modal-btn primary" id="addBtn">Add Activities</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // -------------------- DATA (full lists) --------------------
+    const shanghaiData = [
+      // ATTRACTIONS
+      { name:"Shanghai Museum", category:"attraction", priority:"must-see", price:"FREE", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"World-class Chinese art collection with ancient bronzes, ceramics, and calligraphy. Requires timed entry booking.", location:"People's Square", duration:"2-3 hours", booking:"Required 7+ days ahead", goldenWeek:"Extremely crowded - book immediately", url:"https://www.shanghaimuseum.net/en" },
+      { name:"Yuyuan Garden", category:"attraction", priority:"must-see", price:"£4.05", image:"https://images.unsplash.com/photo-1580836195115-4b74e3a67e7f?w=400&h=160&fit=crop&q=80", description:"Exquisite Ming Dynasty garden with traditional Chinese architecture, pavilions, and rockeries.", location:"Old City", duration:"1-2 hours", booking:"Book ahead", goldenWeek:"Expect massive crowds and long queues", url:"https://www.klook.com/en-US/activity/3979-yu-garden-shanghai/" },
+      { name:"Jade Buddha Temple", category:"attraction", priority:"must-see", price:"£4.05", image:"https://images.unsplash.com/photo-1551112505-3c85b7f10137?w=400&h=160&fit=crop&q=80", description:"Sacred Buddhist temple housing two precious jade Buddha statues from Myanmar.", location:"Jing'an District", duration:"1-1.5 hours", booking:"None required", goldenWeek:"Peaceful escape from crowds", url:"https://maps.app.goo.gl/jade-buddha-temple-shanghai" },
+      { name:"Tianzifang", category:"attraction", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1570282934062-1e3daa26cf73?w=400&h=160&fit=crop&q=80", description:"Artistic quarter in restored shikumen buildings with galleries, cafes, and boutique shops.", location:"French Concession", duration:"2-3 hours", booking:"None required", goldenWeek:"Extremely crowded - visit early morning", url:"https://www.tripadvisor.com/Attraction_Review-g308272-d311107-Reviews-Tianzifang-Shanghai.html" },
+      { name:"The North Bund", category:"attraction", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1546870360-bb5ad5ba6b23?w=400&h=160&fit=crop&q=80", description:"Modern waterfront area with excellent Bund views, perfect for evening strolls and photography.", location:"Hongkou District", duration:"1-2 hours", booking:"None required", goldenWeek:"Less crowded than main Bund", url:"https://www.shanghaiwalks.com/shanghai-blog/north-bund/" },
+      { name:"Oriental Pearl Tower", category:"attraction", priority:"optional", price:"£23-40", image:"https://images.unsplash.com/photo-1570282934062-1e3daa26cf73?w=400&h=160&fit=crop&q=80", description:"Iconic TV tower with observation decks and city views. Classic tourist experience.", location:"Pudong", duration:"1-2 hours", booking:"Book ahead", goldenWeek:"Very long waits expected", url:"https://www.klook.com/en-US/activity/3947-oriental-pearl-tower-shanghai/" },
+      { name:"IFC Mall", category:"attraction", priority:"optional", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"Premium shopping mall in Pudong with luxury brands and restaurants.", location:"Pudong Lujiazui", duration:"1-3 hours", booking:"None required", goldenWeek:"Very crowded shopping destination", url:"https://www.ifc.com.hk/" },
+      { name:"New World Mall", category:"attraction", priority:"optional", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"Large shopping complex near People's Square with department stores and dining.", location:"People's Square", duration:"2-3 hours", booking:"None required", goldenWeek:"Packed with shoppers", url:"https://maps.app.goo.gl/new-world-mall-shanghai" },
+      { name:"Old Town Nanshi", category:"attraction", priority:"optional", price:"FREE", image:"https://images.unsplash.com/photo-1580836195115-4b74e3a67e7f?w=400&h=160&fit=crop&q=80", description:"Historic old town area surrounding Yuyuan Garden with traditional architecture and markets.", location:"Old City", duration:"1-2 hours", booking:"None required", goldenWeek:"Extremely crowded tourist area", url:"https://www.travelchinaguide.com/attraction/shanghai/old_town.htm" },
+      { name:"People's Cafe (Magnolia Plaza)", category:"attraction", priority:"recommended", price:"£15-25", image:"https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=160&fit=crop&q=80", description:"Rooftop cafe with spectacular skyline views - one of Shanghai's best viewpoints for photography.", location:"Huangpu District", duration:"1-2 hours", booking:"Essential 24-48hrs ahead", goldenWeek:"Book immediately - very popular", url:"https://www.dianping.com/shop/peoples-cafe-magnolia-plaza" },
+      { name:"Wukang Road & Anfu Road", category:"attraction", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1570282934062-1e3daa26cf73?w=400&h=160&fit=crop&q=80", description:"Instagram-famous tree-lined streets with historic architecture and trendy cafes.", location:"Former French Concession", duration:"1-2 hours", booking:"None required", goldenWeek:"Packed with photographers and influencers", url:"https://www.timeout.com/shanghai/things-to-do/wukang-road" },
+
+      // ACTIVITIES
+      { name:"Huangpu River Cruise", category:"activity", priority:"must-see", price:"£12.60", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"Essential Shanghai experience offering unique perspectives of both historic Bund and modern Pudong.", location:"Various piers", duration:"45-60 minutes", booking:"Book sunset timing", goldenWeek:"Higher prices, book advance", url:"https://www.klook.com/en-US/activity/1476-huangpu-river-cruise-shanghai/" },
+      { name:"Shanghai Disneyland", category:"activity", priority:"optional", price:"£75-84", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"Magic Kingdom with unique Chinese elements and attractions.", location:"Pudong", duration:"Full day", booking:"Essential", goldenWeek:"AVOID - 4-6 hour waits for rides", url:"https://www.shanghaidisneyresort.com/en/" },
+      { name:"Nanjing Road", category:"activity", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"Famous pedestrian shopping street with neon signs, department stores, and street food.", location:"Huangpu District", duration:"2-3 hours", booking:"None required", goldenWeek:"Shoulder-to-shoulder crowds expected", url:"https://www.tripadvisor.com/Attraction_Review-g308272-d324915-Reviews-Nanjing_Lu_Nanjing_Road-Shanghai.html" },
+      { name:"Lujiazui Skywalk", category:"activity", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1546870360-bb5ad5ba6b23?w=400&h=160&fit=crop&q=80", description:"Elevated walkway connecting Pudong's skyscrapers with great photo opportunities.", location:"Pudong Lujiazui", duration:"30-45 minutes", booking:"None required", goldenWeek:"Crowded but manageable", url:"https://www.timeout.com/shanghai/things-to-do/lujiazui-skywalk" },
+      { name:"Happy Valley Shanghai", category:"activity", priority:"optional", price:"£30-40", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"Theme park with roller coasters and attractions, popular with families.", location:"Songjiang District", duration:"Full day", booking:"Book ahead", goldenWeek:"Very long queues for all rides", url:"https://www.klook.com/en-US/activity/2771-happy-valley-shanghai-theme-park/" },
+      { name:"Qianshen Caoyang Spa", category:"activity", priority:"optional", price:"£25-50", image:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=160&fit=crop&q=80", description:"Traditional Chinese spa offering massage and relaxation treatments.", location:"Putuo District", duration:"2-3 hours", booking:"Recommended", goldenWeek:"Higher prices, book ahead", url:"https://maps.app.goo.gl/qianshen-caoyang-spa" },
+
+      // RESTAURANTS
+      { name:"Din Tai Fung", category:"restaurant", priority:"must-see", price:"£16-32", image:"https://images.unsplash.com/photo-1563379091-c5f9f5d6de5d?w=400&h=160&fit=crop&q=80", description:"World-famous xiaolongbao (soup dumplings) with locations across Shanghai.", location:"Multiple locations", duration:"1-2 hours", booking:"Recommended", goldenWeek:"Long waits expected", url:"https://dtf.com/en-us/locations" },
+      { name:"Jesse's Xiao Long Bao", category:"restaurant", priority:"must-see", price:"£8-15", image:"https://images.unsplash.com/photo-1563379091-c5f9f5d6de5d?w=400&h=160&fit=crop&q=80", description:"Legendary local dumpling house, often considered better than Din Tai Fung by locals.", location:"Multiple locations", duration:"45-90 minutes", booking:"Essential 3-7 days ahead", goldenWeek:"Extremely difficult to get table", url:"https://www.tripadvisor.com/Restaurant_Review-g308272-d1011390-Reviews-Jesse_Restaurant-Shanghai.html" },
+      { name:"Xindalu Restaurant", category:"restaurant", priority:"recommended", price:"£32-63", image:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80", description:"Upscale Peking Duck specialist in elegant Hyatt on the Bund setting.", location:"The Bund", duration:"2-3 hours", booking:"Essential", goldenWeek:"Premium prices apply", url:"https://www.hyatt.com/en-US/hotel/china/hyatt-on-the-bund-shanghai/shash/dining" },
+      { name:"Yershari", category:"restaurant", priority:"recommended", price:"£8-16", image:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80", description:"Authentic Xinjiang cuisine with live performances, lamb dishes and hand-pulled noodles.", location:"Multiple locations", duration:"1-2 hours", booking:"Recommended evenings", goldenWeek:"Popular dinner destination", url:"https://www.tripadvisor.com/Restaurant_Review-g308272-d4704092-Reviews-Yershari_Xinjiang_Food-Shanghai.html" },
+      { name:"Jiazhou Road Area", category:"restaurant", priority:"optional", price:"£5-15", image:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80", description:"Street known for local eateries and small restaurants. Specify exact restaurant when visiting.", location:"Various along Jiazhou Road", duration:"1-2 hours", booking:"Usually none required", goldenWeek:"Local area, less tourist impact", url:"https://maps.app.goo.gl/jiazhou-road-shanghai" },
+      { name:"One Near The Bund", category:"restaurant", priority:"optional", price:"£20-40", image:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80", description:"Restaurant in Bund area - requires specific establishment name for accurate booking.", location:"The Bund area", duration:"2-3 hours", booking:"Verify specific restaurant", goldenWeek:"All Bund restaurants very busy", url:"https://www.tripadvisor.com/Restaurants-g308272-c31-Shanghai.html" }
+    ];
+
+    const hongKongData = [
+      // ATTRACTIONS
+      { name:"The Peak Tram", category:"attraction", priority:"must-see", price:"£13", image:"https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=160&fit=crop&q=80", description:"Historic 1888 funicular railway to Victoria Peak with spectacular harbor views.", location:"Central", duration:"2-3 hours", booking:"Book ahead", goldenWeek:null, url:"https://www.thepeak.com.hk/en" },
+      { name:"The Big Buddha", category:"attraction", priority:"must-see", price:"£23-50", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"34-meter bronze Buddha statue reached by scenic Ngong Ping cable car journey.", location:"Lantau Island", duration:"Half day", booking:"Recommended", goldenWeek:null, url:"https://www.np360.com.hk/en" },
+      { name:"Victoria Harbour", category:"attraction", priority:"must-see", price:"FREE", image:"https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=160&fit=crop&q=80", description:"World-famous natural harbor with stunning skyline views, best enjoyed from waterfront promenades.", location:"Central/TST", duration:"1-3 hours", booking:"None required", goldenWeek:null, url:"https://www.discoverhongkong.com/us/see-do/highlight-attractions/harbour-views/victoria-harbour.html" },
+      { name:"Wong Tai Sin Temple", category:"attraction", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1551112505-3c85b7f10137?w=400&h=160&fit=crop&q=80", description:"Colorful Taoist temple famous for 'answering every prayer' and fortune telling.", location:"Wong Tai Sin", duration:"1-2 hours", booking:"None required", goldenWeek:null, url:"https://www.siksikyuen.org.hk/en" },
+      { name:"Soho & Graham Street", category:"attraction", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"Trendy dining and nightlife district with international restaurants and bars on hillside.", location:"Central Mid-Levels", duration:"2-4 hours", booking:"None required", goldenWeek:null, url:"https://www.timeout.com/hong-kong/bars-and-pubs/soho-bars" },
+      { name:"Happy Valley Racecourse", category:"attraction", priority:"recommended", price:"£6-15", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"Historic horse racing venue offering unique Wednesday night racing experience.", location:"Happy Valley", duration:"3-4 hours", booking:"None for general admission", goldenWeek:null, url:"https://www.hkjc.com/home/english/racing/index.aspx" },
+      { name:"Hong Kong Park", category:"attraction", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1574879778174-3e75c5b70be8?w=400&h=160&fit=crop&q=80", description:"Beautiful urban park in Central with aviary, conservatory, and tai chi garden.", location:"Central", duration:"1-2 hours", booking:"None required", goldenWeek:null, url:"https://www.lcsd.gov.hk/en/parks/hkp/index.html" },
+      { name:"Hong Kong Museum of History", category:"attraction", priority:"recommended", price:"£3-5", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"Comprehensive museum covering Hong Kong's history from prehistoric times to present.", location:"Tsim Sha Tsui East", duration:"2-3 hours", booking:"None required", goldenWeek:null, url:"https://hk.history.museum/en_US/web/mh/index.html" },
+      { name:"K11 Mall", category:"attraction", priority:"optional", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"Art-focused shopping mall with rotating exhibitions and upscale brands.", location:"Tsim Sha Tsui", duration:"1-3 hours", booking:"None required", goldenWeek:null, url:"https://www.k11.com/en" },
+      { name:"Sky100 Observation Deck", category:"attraction", priority:"optional", price:"CLOSED", image:"https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=160&fit=crop&q=80", description:"⚠️ CLOSED for renovation until first half 2026. 360-degree city views from 100th floor.", location:"West Kowloon", duration:"N/A", booking:"Currently closed", goldenWeek:null, url:"https://sky100.com.hk/en/" },
+      { name:"Paradise Mall", category:"attraction", priority:"optional", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"⚠️ Could not verify significance - appears to be a small local shopping center. Recommend alternative malls like IFC or K11.", location:"Location needs verification", duration:"1-2 hours", booking:"None required", goldenWeek:null, url:"https://maps.app.goo.gl/paradise-mall-hong-kong" },
+
+      // ACTIVITIES
+      { name:"Symphony of Lights", category:"activity", priority:"must-see", price:"FREE", image:"https://images.unsplash.com/photo-1536431311719-398b6704d4cc?w=400&h=160&fit=crop&q=80", description:"Nightly multimedia light show across Victoria Harbour at 8:00 PM sharp.", location:"Victoria Harbour", duration:"15 minutes", booking:"None required", goldenWeek:null, url:"https://www.tourism.gov.hk/symphony/english/index.html" },
+      { name:"Star Ferry Over Victoria Harbour", category:"activity", priority:"must-see", price:"£0.25", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"Historic ferry crossing Victoria Harbour - unchanged since 1888.", location:"Central/TST", duration:"10 minutes", booking:"None required", goldenWeek:null, url:"https://www.starferry.com.hk/" },
+      { name:"Temple Street Night Market", category:"activity", priority:"must-see", price:"FREE", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"Last authentic night market with street food, fortune tellers, and bargain shopping.", location:"Yau Ma Tei", duration:"2-3 hours", booking:"None required", goldenWeek:null, url:"https://www.discoverhongkong.com/us/see-do/shopping/street-markets-and-shopping-areas/temple-street-night-market.html" },
+      { name:"Ocean Park Amusement Park", category:"activity", priority:"recommended", price:"£48", image:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=160&fit=crop&q=80", description:"Marine theme park with Halloween events during October 10-12.", location:"Aberdeen", duration:"Full day", booking:"Book ahead", goldenWeek:null, url:"https://www.oceanpark.com.hk/en" },
+      { name:"Nan Lian Garden", category:"activity", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1574879778174-3e75c5b70be8?w=400&h=160&fit=crop&q=80", description:"Tang Dynasty-style classical Chinese garden with perfectly manicured landscaping.", location:"Diamond Hill", duration:"1-2 hours", booking:"None required", goldenWeek:null, url:"https://www.lcsd.gov.hk/en/parks/nlg/index.html" },
+      { name:"Mongkok Street Markets", category:"activity", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"Bustling street markets including Ladies' Market and Flower Market for bargain shopping.", location:"Mongkok", duration:"2-3 hours", booking:"None required", goldenWeek:null, url:"https://www.discoverhongkong.com/us/see-do/shopping/street-markets-and-shopping-areas/mongkok.html" },
+      { name:"Deep Water Bay Beach", category:"activity", priority:"recommended", price:"FREE", image:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=160&fit=crop&q=80", description:"Sandy beach perfect for October weather with good facilities and shark nets.", location:"Hong Kong Island South", duration:"2-4 hours", booking:"None required", goldenWeek:null, url:"https://www.lcsd.gov.hk/en/beach/index/beach-location-%E6%B8%AF%E5%B3%B6/beach-address-deep-water-bay-beach.html" },
+      { name:"Kennedy Town", category:"activity", priority:"optional", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"Hip neighbourhood with trendy cafes, bars, and Instagram-worthy walls.", location:"Western Hong Kong Island", duration:"2-3 hours", booking:"None required", goldenWeek:null, url:"https://www.timeout.com/hong-kong/things-to-do/kennedy-town-guide" },
+      { name:"Soho Neighbourhood", category:"activity", priority:"optional", price:"FREE", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"Trendy area with international restaurants, bars, and art galleries on Mid-Levels escalators.", location:"Central Mid-Levels", duration:"2-4 hours", booking:"None required", goldenWeek:null, url:"https://www.discoverhongkong.com/us/see-do/nightlife/bars-and-pubs/soho.html" },
+      { name:"Skye Roof Bar", category:"activity", priority:"optional", price:"£15-30", image:"https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=160&fit=crop&q=80", description:"Upscale rooftop bar with panoramic harbor views and craft cocktails.", location:"Tsim Sha Tsui", duration:"2-3 hours", booking:"Recommended for dinner", goldenWeek:null, url:"https://www.rosewoodhotels.com/en/hong-kong/dining/skye" },
+      { name:"Prestige Tower Unibuy Wholesalers", category:"activity", priority:"optional", price:"N/A", image:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=160&fit=crop&q=80", description:"⚠️ WARNING: This is NOT a tourist attraction - it's a commercial wholesale building. Not recommended for tourists.", location:"Tsim Sha Tsui", duration:"Not applicable", booking:"Not applicable", goldenWeek:null, url:"https://maps.app.goo.gl/prestige-tower-tsim-sha-tsui" },
+
+      // RESTAURANTS
+      { name:"Ho Lee Fook", category:"restaurant", priority:"must-see", price:"£38-58", image:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80", description:"Modern Cantonese celebrating 10th anniversary with innovative dishes.", location:"Central", duration:"2-3 hours", booking:"Essential", goldenWeek:null, url:"https://www.holeefook.com.hk/" },
+      { name:"The Queen", category:"restaurant", priority:"must-see", price:"£48-77+", image:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80", description:"High-end regional Chinese cuisine in historic 1881 Heritage building.", location:"Tsim Sha Tsui", duration:"2-3 hours", booking:"Essential", goldenWeek:null, url:"https://www.1881heritage.com/en/dine/the-queen" },
+      { name:"Mak Man Kee Noodle Shop", category:"restaurant", priority:"recommended", price:"£3-4", image:"https://images.unsplash.com/photo-1563379091-c5f9f5d6de5d?w=400&h=160&fit=crop&q=80", description:"Michelin-rated wonton noodle specialist, local institution since 1920s.", location:"Jordan", duration:"30-45 minutes", booking:"None required", goldenWeek:null, url:"https://guide.michelin.com/hk/en/hong-kong-region/hong-kong/restaurant/mak-man-kee" },
+      { name:"Po Kee BBQ", category:"restaurant", priority:"recommended", price:"£5-10", image:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80", description:"Michelin Bib Gourmand roast duck and char siu specialist.", location:"Wan Chai", duration:"45-60 minutes", booking:"None required", goldenWeek:null, url:"https://guide.michelin.com/hk/en/hong-kong-region/hong-kong/restaurant/po-kee" },
+      { name:"Kau Kee", category:"restaurant", priority:"optional", price:"£4-8", image:"https://images.unsplash.com/photo-1563379091-c5f9f5d6de5d?w=400&h=160&fit=crop&q=80", description:"⚠️ Famous beef brisket noodles but currently experiencing reputation issues with poor tourist treatment.", location:"Central", duration:"30-45 minutes", booking:"None required", goldenWeek:null, url:"https://www.tripadvisor.com/Restaurant_Review-g294217-d795044-Reviews-Kau_Kee_Restaurant-Hong_Kong.html" },
+      { name:"Hay Hay Kitchen", category:"restaurant", priority:"optional", price:"£8-15", image:"https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=400&h=160&fit=crop&q=80", description:"Local cha chaan teng (tea restaurant) - verify current quality before visiting.", location:"Various locations", duration:"45-60 minutes", booking:"None required", goldenWeek:null, url:"https://www.tripadvisor.com/Restaurant_Review-g294217-d868973-Reviews-Hay_Hay-Hong_Kong.html" }
+    ];
+
+    // -------------------- STATE --------------------
+    let currentCity = 'shanghai';
+    let currentFilter = 'all';
+    let currentMode = 'explore';
+    const selectedItems = new Set();
+    const itinerary = {
+      'shanghai-day1': [], 'shanghai-day2': [], 'shanghai-day3': [],
+      'shanghai-day4': [], 'shanghai-day5': [], 'shanghai-day6': [],
+      'hongkong-day1': [], 'hongkong-day2': [], 'hongkong-day3': [],
+      'hongkong-day4': [], 'hongkong-day5': []
+    };
+
+    // -------------------- RENDER CARDS --------------------
+    function renderCards() {
+      const data = currentCity === 'shanghai' ? shanghaiData : hongKongData;
+      const container = document.getElementById(`${currentCity}-cards`);
+
+      // filter
+      let filtered = data;
+      if (currentFilter !== 'all') filtered = filtered.filter(i => i.priority === currentFilter);
+
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      if (q) {
+        filtered = filtered.filter(i =>
+          i.name.toLowerCase().includes(q) ||
+          i.description.toLowerCase().includes(q) ||
+          i.location.toLowerCase().includes(q)
+        );
+      }
+
+      container.innerHTML = '';
+
+      filtered.forEach((item) => {
+        const id = `${currentCity}-${data.indexOf(item)}`;
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.itemId = id;
+        if (selectedItems.has(id)) card.classList.add('selected');
+
+        card.innerHTML = `
+          <div class="priority-badge ${item.priority}">${item.priority.replace('-', ' ')}</div>
+          <div class="card-checkbox ${currentMode === 'plan' ? 'visible' : ''} ${selectedItems.has(id) ? 'checked' : ''}"></div>
+          <img src="${item.image}" alt="${item.name}" class="card-image" loading="lazy">
+          <div class="card-content">
+            <h3 class="card-title">${item.name}</h3>
+            <p class="card-description">${item.description}</p>
+            <div class="card-details">
+              <div class="detail-item"><span class="detail-icon">📍</span><span>${item.location}</span></div>
+              <div class="detail-item"><span class="detail-icon">⏱️</span><span>${item.duration}</span></div>
+              <div class="detail-item"><span class="detail-icon">🎫</span><span>${item.booking}</span></div>
+              <div class="detail-item"><span class="detail-icon">${item.category === 'restaurant' ? '🍽️' : '🎯'}</span><span>${item.category === 'restaurant' ? 'Restaurant' : (item.category === 'activity' ? 'Activity' : 'Attraction')}</span></div>
+            </div>
+            <div class="price">${item.price}</div>
+            <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="info-link">
+              <span>More Info & Booking</span><span class="link-arrow">→</span>
+            </a>
+            ${item.goldenWeek ? `<div class="golden-week-warning"><strong>Golden Week:</strong> ${item.goldenWeek}</div>` : ''}
+          </div>
+        `;
+
+        if (currentMode === 'plan') {
+          card.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' || e.target.closest('a')) return; // allow links
+            e.preventDefault();
+            toggleCardSelection(id);
+          });
         }
 
-        function toggleCardSelection(itemId) {
-            const card = document.querySelector(`[data-item-id="${itemId}"]`);
-            const checkbox = card.querySelector('.card-checkbox');
-            
-            if (selectedItems.has(itemId)) {
-                selectedItems.delete(itemId);
-                card.classList.remove('selected');
-                checkbox.classList.remove('checked');
-            } else {
-                selectedItems.add(itemId);
-                card.classList.add('selected');
-                checkbox.classList.add('checked');
-            }
-            
-            updateSelectedButton();
-        }
+        container.appendChild(card);
+      });
 
-        function updateSelectedButton() {
-            const btn = document.getElementById('addSelectedBtn');
-            const count = document.getElementById('selectedCount');
-            
-            count.textContent = selectedItems.size;
-            
-            if (selectedItems.size > 0 && currentMode === 'plan') {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
-            }
-        }
+      // stats
+      document.getElementById('totalCount').textContent = filtered.length;
+      document.getElementById('mustSeeCount').textContent = filtered.filter(i => i.priority === 'must-see').length;
+      document.getElementById('budgetRange').textContent = currentCity === 'shanghai' ? '£70-137' : '£56-111';
+    }
 
-        function switchMode(mode) {
-            currentMode = mode;
-            
-            // Update buttons
-            document.getElementById('exploreBtn').classList.toggle('active', mode === 'explore');
-            document.getElementById('planBtn').classList.toggle('active', mode === 'plan');
-            
-            // Show/hide sidebar
-            document.getElementById('itinerarySidebar').classList.toggle('visible', mode === 'plan');
-            
-            // Clear selections when switching modes
-            if (mode === 'explore') {
-                selectedItems.clear();
-            }
-            
-            renderCards();
-            updateSelectedButton();
-            
-            if (mode === 'plan') {
-                renderItinerary();
-            }
-        }
+    function toggleCardSelection(id) {
+      const card = document.querySelector(`[data-item-id="${id}"]`);
+      if (!card) return;
+      const checkbox = card.querySelector('.card-checkbox');
 
-        function switchCity(city) {
-            currentCity = city;
-            
-            // Update buttons
-            document.getElementById('shanghaiBtn').classList.toggle('active', city === 'shanghai');
-            document.getElementById('hongKongBtn').classList.toggle('active', city === 'hong-kong');
-            
-            // Show/hide sections
-            document.getElementById('shanghai-section').classList.toggle('hidden', city !== 'shanghai');
-            document.getElementById('hong-kong-section').classList.toggle('hidden', city !== 'hong-kong');
-            document.getElementById('shanghai-days').classList.toggle('hidden', city !== 'shanghai');
-            document.getElementById('hong-kong-days').classList.toggle('hidden', city !== 'hong-kong');
-            
-            // Clear selections and search
-            selectedItems.clear();
-            document.getElementById('searchInput').value = '';
-            
-            renderCards();
-            updateSelectedButton();
-            
-            if (currentMode === 'plan') {
-                renderItinerary();
-            }
-        }
+      if (selectedItems.has(id)) {
+        selectedItems.delete(id);
+        card.classList.remove('selected');
+        checkbox.classList.remove('checked');
+      } else {
+        selectedItems.add(id);
+        card.classList.add('selected');
+        checkbox.classList.add('checked');
+      }
+      updateSelectedButton();
+    }
 
-        function openDatePicker() {
-            const modal = document.getElementById('datePickerModal');
-            const grid = document.getElementById('dateGrid');
-            
-            const days = currentCity === 'shanghai' ? 
-                [
-                    { id: 'shanghai-day1', title: 'Oct 3', subtitle: 'Shanghai Day 1' },
-                    { id: 'shanghai-day2', title: 'Oct 4', subtitle: 'Shanghai Day 2' },
-                    { id: 'shanghai-day3', title: 'Oct 5', subtitle: 'Shanghai Day 3' },
-                    { id: 'shanghai-day4', title: 'Oct 6', subtitle: 'Shanghai Day 4' },
-                    { id: 'shanghai-day5', title: 'Oct 7', subtitle: 'Shanghai Day 5' },
-                    { id: 'shanghai-day6', title: 'Oct 8', subtitle: 'Shanghai Day 6' }
-                ] : [
-                    { id: 'hongkong-day1', title: 'Oct 8', subtitle: 'Hong Kong Day 1' },
-                    { id: 'hongkong-day2', title: 'Oct 9', subtitle: 'Hong Kong Day 2' },
-                    { id: 'hongkong-day3', title: 'Oct 10', subtitle: 'Hong Kong Day 3' },
-                    { id: 'hongkong-day4', title: 'Oct 11', subtitle: 'Hong Kong Day 4' },
-                    { id: 'hongkong-day5', title: 'Oct 12', subtitle: 'Hong Kong Day 5' }
-                ];
-            
-            grid.innerHTML = '';
-            days.forEach(day => {
-                const option = document.createElement('div');
-                option.className = 'date-option';
-                option.dataset.day = day.id;
-                option.innerHTML = `
-                    <div class="date-option-title">${day.title}</div>
-                    <div class="date-option-subtitle">${day.subtitle}</div>
-                `;
-                option.addEventListener('click', () => {
-                    grid.querySelectorAll('.date-option').forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                });
-                grid.appendChild(option);
-            });
-            
-            modal.classList.add('visible');
-        }
+    function updateSelectedButton() {
+      const btn = document.getElementById('addSelectedBtn');
+      document.getElementById('selectedCount').textContent = selectedItems.size;
+      if (selectedItems.size > 0 && currentMode === 'plan') btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    }
 
-        function addToSelectedDay() {
-            const selectedDay = document.querySelector('.date-option.selected')?.dataset.day;
-            if (!selectedDay || selectedItems.size === 0) return;
-            
-            const data = currentCity === 'shanghai' ? shanghaiData : hongKongData;
-            
-            selectedItems.forEach(itemId => {
-                const [, indexStr] = itemId.split('-');
-                const index = parseInt(indexStr);
-                const item = data[index];
-                
-                if (!itinerary[selectedDay].some(existing => existing.id === itemId)) {
-                    itinerary[selectedDay].push({
-                        id: itemId,
-                        ...item
-                    });
-                }
-            });
-            
-            selectedItems.clear();
-            renderCards();
-            renderItinerary();
-            updateSelectedButton();
-            document.getElementById('datePickerModal').classList.remove('visible');
-        }
+    // -------------------- MODE & CITY --------------------
+    function switchMode(mode) {
+      currentMode = mode;
+      document.getElementById('exploreBtn').classList.toggle('active', mode === 'explore');
+      document.getElementById('planBtn').classList.toggle('active', mode === 'plan');
+      document.getElementById('itinerarySidebar').classList.toggle('visible', mode === 'plan');
+      if (mode === 'explore') selectedItems.clear();
+      renderCards();
+      updateSelectedButton();
+      if (mode === 'plan') renderItinerary();
+    }
 
-        function renderItinerary() {
-            const days = currentCity === 'shanghai' ? 
-                ['shanghai-day1', 'shanghai-day2', 'shanghai-day3', 'shanghai-day4', 'shanghai-day5', 'shanghai-day6'] :
-                ['hongkong-day1', 'hongkong-day2', 'hongkong-day3', 'hongkong-day4', 'hongkong-day5'];
-            
-            days.forEach((dayId, index) => {
-                const container = document.getElementById(dayId);
-                const statsId = currentCity === 'shanghai' ? 
-                    `day${index + 1}-stats` : `hk-day${index + 1}-stats`;
-                const statsEl = document.getElementById(statsId);
-                
-                if (itinerary[dayId].length === 0) {
-                    container.innerHTML = '<div class="empty-day">Click activities to add them here</div>';
-                    statsEl.textContent = '0 activities • 0 hours • £0';
-                } else {
-                    container.innerHTML = '';
-                    let totalHours = 0;
-                    let totalCost = 0;
-                    
-                    itinerary[dayId].forEach((item, itemIndex) => {
-                        const duration = parseDuration(item.duration);
-                        const cost = parseCost(item.price);
-                        totalHours += duration;
-                        totalCost += cost;
-                        
-                        const dayItem = document.createElement('div');
-                        dayItem.className = 'day-item';
-                        dayItem.innerHTML = `
-                            <div class="day-item-info">
-                                <div class="day-item-name">${item.name}</div>
-                                <div class="day-item-details">${item.duration} • ${item.price}</div>
-                            </div>
-                            <button class="remove-item">×</button>
-                        `;
-                        
-                        dayItem.querySelector('.remove-item').addEventListener('click', () => {
-                            itinerary[dayId].splice(itemIndex, 1);
-                            renderItinerary();
-                        });
-                        
-                        container.appendChild(dayItem);
-                    });
-                    
-                    const hours = totalHours % 1 === 0 ? totalHours : totalHours.toFixed(1);
-                    statsEl.textContent = `${itinerary[dayId].length} activities • ${hours}h • £${totalCost}`;
-                }
-            });
-        }
+    function switchCity(city) {
+      currentCity = city;
+      document.getElementById('shanghaiBtn').classList.toggle('active', city === 'shanghai');
+      document.getElementById('hongKongBtn').classList.toggle('active', city === 'hong-kong');
 
-        function parseDuration(duration) {
-            if (duration.includes('Full day')) return 8;
-            if (duration.includes('Half day')) return 4;
-            if (duration.includes('2-3 hours')) return 2.5;
-            if (duration.includes('1-2 hours')) return 1.5;
-            if (duration.includes('45-60 minutes')) return 1;
-            return 1;
-        }
+      document.getElementById('shanghai-section').classList.toggle('hidden', city !== 'shanghai');
+      document.getElementById('hong-kong-section').classList.toggle('hidden', city !== 'hong-kong');
+      document.getElementById('shanghai-days').classList.toggle('hidden', city !== 'shanghai');
+      document.getElementById('hong-kong-days').classList.toggle('hidden', city !== 'hong-kong');
 
-        function parseCost(price) {
-            if (price === 'FREE' || price === 'CLOSED') return 0;
-            const match = price.match(/£(\d+)/);
-            return match ? parseInt(match[1]) : 0;
-        }
+      selectedItems.clear();
+      document.getElementById('searchInput').value = '';
+      renderCards();
+      updateSelectedButton();
+      if (currentMode === 'plan') renderItinerary();
+    }
 
-        function exportItinerary() {
-            let exportText = `🏮 Shanghai & Hong Kong Itinerary - October 2025\n\n`;
-            
-            Object.keys(itinerary).forEach(dayId => {
-                if (itinerary[dayId].length > 0) {
-                    const dayName = dayId.replace('-', ' ').replace('day', 'Day ');
-                    exportText += `${dayName}\n${'='.repeat(dayName.length)}\n\n`;
-                    
-                    itinerary[dayId].forEach((item, index) => {
-                        exportText += `${index + 1}. ${item.name}\n`;
-                        exportText += `   📍 ${item.location}\n`;
-                        exportText += `   ⏱️ ${item.duration}\n`;
-                        exportText += `   💰 ${item.price}\n`;
-                        exportText += `   🔗 ${item.url}\n\n`;
-                    });
-                    exportText += '\n';
-                }
-            });
-            
-            const blob = new Blob([exportText], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'shanghai-hong-kong-itinerary.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+    // -------------------- DATE PICKER --------------------
+    function openDatePicker() {
+      const modal = document.getElementById('datePickerModal');
+      const grid = document.getElementById('dateGrid');
 
-        // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('exploreBtn').addEventListener('click', () => switchMode('explore'));
-            document.getElementById('planBtn').addEventListener('click', () => switchMode('plan'));
-            document.getElementById('shanghaiBtn').addEventListener('click', () => switchCity('shanghai'));
-            document.getElementById('hongKongBtn').addEventListener('click', () => switchCity('hong-kong'));
-            
-            document.getElementById('filterAll').addEventListener('click', () => {
-                currentFilter = 'all';
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                document.getElementById('filterAll').classList.add('active');
-                renderCards();
-            });
-            
-            document.getElementById('filterMustSee').addEventListener('click', () => {
-                currentFilter = 'must-see';
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                document.getElementById('filterMustSee').classList.add('active');
-                renderCards();
-            });
-            
-            document.getElementById('filterRecommended').addEventListener('click', () => {
-                currentFilter = 'recommended';
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                document.getElementById('filterRecommended').classList.add('active');
-                renderCards();
-            });
-            
-            document.getElementById('filterOptional').addEventListener('click', () => {
-                currentFilter = 'optional';
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                document.getElementById('filterOptional').classList.add('active');
-                renderCards();
-            });
-            
-            document.getElementById('searchInput').addEventListener('input', renderCards);
-            document.getElementById('addSelectedBtn').addEventListener('click', openDatePicker);
-            document.getElementById('cancelBtn').addEventListener('click', () => {
-                document.getElementById('datePickerModal').classList.remove('visible');
-            });
-            document.getElementById('addBtn').addEventListener('click', addToSelectedDay);
-            document.getElementById('exportBtn').addEventListener('click', exportItinerary);
-            
-            // Initialize
-            renderCards();
+      const days = currentCity === 'shanghai'
+        ? [
+            { id:'shanghai-day1', title:'Oct 3', subtitle:'Shanghai Day 1' },
+            { id:'shanghai-day2', title:'Oct 4', subtitle:'Shanghai Day 2' },
+            { id:'shanghai-day3', title:'Oct 5', subtitle:'Shanghai Day 3' },
+            { id:'shanghai-day4', title:'Oct 6', subtitle:'Shanghai Day 4' },
+            { id:'shanghai-day5', title:'Oct 7', subtitle:'Shanghai Day 5' },
+            { id:'shanghai-day6', title:'Oct 8', subtitle:'Shanghai Day 6' }
+          ]
+        : [
+            { id:'hongkong-day1', title:'Oct 8', subtitle:'Hong Kong Day 1' },
+            { id:'hongkong-day2', title:'Oct 9', subtitle:'Hong Kong Day 2' },
+            { id:'hongkong-day3', title:'Oct 10', subtitle:'Hong Kong Day 3' },
+            { id:'hongkong-day4', title:'Oct 11', subtitle:'Hong Kong Day 4' },
+            { id:'hongkong-day5', title:'Oct 12', subtitle:'Hong Kong Day 5' }
+          ];
+
+      grid.innerHTML = '';
+      days.forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'date-option';
+        el.dataset.day = d.id;
+        el.innerHTML = `<div class="date-option-title">${d.title}</div><div class="date-option-subtitle">${d.subtitle}</div>`;
+        el.addEventListener('click', () => {
+          grid.querySelectorAll('.date-option').forEach(o => o.classList.remove('selected'));
+          el.classList.add('selected');
         });
-    </script>
+        grid.appendChild(el);
+      });
+
+      modal.classList.add('visible');
+    }
+
+    function closeDatePicker() {
+      document.getElementById('datePickerModal').classList.remove('visible');
+    }
+
+    function addToSelectedDay() {
+      const selectedDay = document.querySelector('.date-option.selected')?.dataset.day;
+      if (!selectedDay || selectedItems.size === 0) return;
+
+      const data = currentCity === 'shanghai' ? shanghaiData : hongKongData;
+
+      selectedItems.forEach(itemId => {
+        const [, indexStr] = itemId.split('-'); // e.g. shanghai-12
+        const index = parseInt(indexStr, 10);
+        const item = data[index];
+        if (!item) return;
+
+        if (!itinerary[selectedDay].some(existing => existing.id === itemId)) {
+          itinerary[selectedDay].push({ id: itemId, ...item });
+        }
+      });
+
+      selectedItems.clear();
+      renderCards();
+      renderItinerary();
+      updateSelectedButton();
+      closeDatePicker();
+    }
+
+    // -------------------- ITINERARY RENDER --------------------
+    function renderItinerary() {
+      const days = currentCity === 'shanghai'
+        ? ['shanghai-day1','shanghai-day2','shanghai-day3','shanghai-day4','shanghai-day5','shanghai-day6']
+        : ['hongkong-day1','hongkong-day2','hongkong-day3','hongkong-day4','hongkong-day5'];
+
+      days.forEach((dayId, i) => {
+        const container = document.getElementById(dayId);
+        const statsId = currentCity === 'shanghai' ? `day${i+1}-stats` : `hk-day${i+1}-stats`;
+        const statsEl = document.getElementById(statsId);
+
+        if (itinerary[dayId].length === 0) {
+          container.innerHTML = '<div class="empty-day">Click activities to add them here</div>';
+          statsEl.textContent = '0 activities • 0 hours • £0';
+          return;
+        }
+
+        container.innerHTML = '';
+        let totalHours = 0;
+        let totalCost = 0;
+
+        itinerary[dayId].forEach((item, idx) => {
+          totalHours += parseDuration(item.duration);
+          totalCost += parseCost(item.price);
+
+          const row = document.createElement('div');
+          row.className = 'day-item';
+          row.innerHTML = `
+            <div class="day-item-info">
+              <div class="day-item-name">${item.name}</div>
+              <div class="day-item-details">${item.duration} • ${item.price}</div>
+            </div>
+            <button class="remove-item" title="Remove">×</button>
+          `;
+          row.querySelector('.remove-item').addEventListener('click', () => {
+            itinerary[dayId].splice(idx, 1);
+            renderItinerary();
+          });
+          container.appendChild(row);
+        });
+
+        const hours = Number.isInteger(totalHours) ? totalHours : totalHours.toFixed(1);
+        statsEl.textContent = `${itinerary[dayId].length} activities • ${hours}h • £${totalCost}`;
+      });
+    }
+
+    function parseDuration(duration='') {
+      const d = duration.toLowerCase();
+      if (d.includes('full day')) return 8;
+      if (d.includes('half day')) return 4;
+      if (d.includes('2-3')) return 2.5;
+      if (d.includes('1-2')) return 1.5;
+      if (d.includes('45-60') || d.includes('15 minutes') || d.includes('10 minutes') || d.includes('30-45')) return 1;
+      return 1;
+    }
+
+    function parseCost(price='') {
+      if (price === 'FREE' || price === 'CLOSED' || price === 'N/A') return 0;
+      const m = price.match(/£(\d+)/);
+      return m ? parseInt(m[1], 10) : 0;
+    }
+
+    // -------------------- EXPORT --------------------
+    function exportItinerary() {
+      let out = `🏮 Shanghai & Hong Kong Itinerary - October 2025\n\n`;
+      Object.keys(itinerary).forEach(dayId => {
+        if (itinerary[dayId].length > 0) {
+          const dayName = dayId.replace('-', ' ').replace('day', 'Day ');
+          out += `${dayName}\n${'='.repeat(dayName.length)}\n\n`;
+          itinerary[dayId].forEach((item, idx) => {
+            out += `${idx+1}. ${item.name}\n`;
+            out += `   📍 ${item.location}\n`;
+            out += `   ⏱️ ${item.duration}\n`;
+            out += `   💰 ${item.price}\n`;
+            out += `   🔗 ${item.url}\n\n`;
+          });
+          out += `\n`;
+        }
+      });
+      const blob = new Blob([out], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'shanghai-hong-kong-itinerary.txt';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // -------------------- EVENTS --------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      // mode
+      document.getElementById('exploreBtn').addEventListener('click', () => switchMode('explore'));
+      document.getElementById('planBtn').addEventListener('click', () => switchMode('plan'));
+
+      // city
+      document.getElementById('shanghaiBtn').addEventListener('click', () => switchCity('shanghai'));
+      document.getElementById('hongKongBtn').addEventListener('click', () => switchCity('hong-kong'));
+
+      // filters
+      document.getElementById('filterAll').addEventListener('click', () => {
+        currentFilter = 'all';
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('filterAll').classList.add('active');
+        renderCards();
+      });
+      document.getElementById('filterMustSee').addEventListener('click', () => {
+        currentFilter = 'must-see';
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('filterMustSee').classList.add('active');
+        renderCards();
+      });
+      document.getElementById('filterRecommended').addEventListener('click', () => {
+        currentFilter = 'recommended';
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('filterRecommended').classList.add('active');
+        renderCards();
+      });
+      document.getElementById('filterOptional').addEventListener('click', () => {
+        currentFilter = 'optional';
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('filterOptional').classList.add('active');
+        renderCards();
+      });
+
+      // search
+      document.getElementById('searchInput').addEventListener('input', renderCards);
+
+      // add to itinerary
+      document.getElementById('addSelectedBtn').addEventListener('click', openDatePicker);
+      document.getElementById('cancelBtn').addEventListener('click', closeDatePicker);
+      document.getElementById('addBtn').addEventListener('click', addToSelectedDay);
+
+      // export
+      document.getElementById('exportBtn').addEventListener('click', exportItinerary);
+
+      // initial render
+      renderCards();
+    });
+  </script>
 </body>
 </html>
